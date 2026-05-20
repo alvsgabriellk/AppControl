@@ -1,0 +1,1 @@
+vcs vao fazer o aplicativo na pasta APP, ent quando estiverem fazendo coisas diferentes, conversem, e vejam como vai ficar separado as pastas e etc, mas tudo dentro da pasta APP
