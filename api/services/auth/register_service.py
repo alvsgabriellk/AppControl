@@ -17,6 +17,6 @@ def register_ok(nome, email, senha):
     except IntegrityError:
         db.session.rollback()
 
-        return {"error": "Email já está sendo usado!"}, 409
+        return {"error": "Esse email já está sendo usado!"}, 409
     
     return {"msg": "Usuário cadastrado!"}, 201
