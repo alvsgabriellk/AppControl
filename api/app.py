@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from database import db
 import os
+from routes import auth_bp
 from config import DesenvolvimentoConfig, ProducaoConfig
 
 app = Flask(__name__)
