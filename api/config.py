@@ -12,3 +12,7 @@ class DesenvolvimentoConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI  = "sqlite:///banco.db"
     CORS_ORIGINS = [""]
+
+class ProducaoConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    CORS_ORIGINS = [os.getenv("APP_URL")]
