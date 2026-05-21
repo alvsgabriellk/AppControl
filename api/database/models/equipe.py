@@ -1,7 +1,7 @@
 from database import db
 
 class Equipe(db.Model):
-    __tablename__ = "equipe"
+    __tablename__ = "equipes"
 
     id_equipe = db.Column(
         db.Integer, primary_key=True, 
