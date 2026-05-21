@@ -1,1 +1,1 @@
-pass
+from .auth.register_controller import register_dados

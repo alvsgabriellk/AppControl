@@ -1,1 +1,1 @@
-pass
+from .auth.register_service import register_ok
