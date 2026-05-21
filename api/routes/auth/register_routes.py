@@ -9,4 +9,4 @@ def cadastro_usuario():
 
     resposta, status = register_dados(dados)
 
-    return jsonify({"msg": resposta}), status
+    return jsonify(resposta), status
