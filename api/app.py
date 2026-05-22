@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from database import db
 import os
-from routes import auth_bp
+from routes import auth_bp, veic_bp
 from config import DesenvolvimentoConfig, ProducaoConfig
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ CORS(app, origins=app.config["CORS_ORIGINS"])
 db.init_app(app)
 
 app.register_blueprint(auth_bp)
+app.register_blueprint(veic_bp)
 
 with app.app_context():
     db.create_all()
