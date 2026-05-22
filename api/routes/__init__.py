@@ -8,3 +8,4 @@ mant_bp = Blueprint("mant", __name__, url_prefix="/mant")
 from .auth import register_routes
 from routes import veiculo_routes
 from routes import oficina_routes
+from routes import manutencao_routes
