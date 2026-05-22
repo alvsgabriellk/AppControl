@@ -5,8 +5,7 @@ from sqlalchemy import select
 def veiculo_ok(usuario_id, placa, renavan, marca, modelo, km_compra, km_atual):
     usuario = db.session.execute(
         select(Usuario).where(
-            Usuario.id == usuario_id,
-            limit=1
+            Usuario.id == usuario_id
         )
     ).scalar_one_or_none()
 
