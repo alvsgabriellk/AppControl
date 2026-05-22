@@ -6,3 +6,4 @@ ofic_bp = Blueprint("ofic", __name__, url_prefix="/ofic")
 
 from .auth import register_routes
 from routes import veiculo_routes
+from routes import oficina_routes
