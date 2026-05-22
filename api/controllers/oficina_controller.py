@@ -2,7 +2,7 @@ from services import oficina_ok
 
 def oficina_dados(dados):
     nome = dados["nome"]
-    telefone = dados=["telefone"]
+    telefone = dados["telefone"]
     responsavel = dados["responsavel"]
     endereco = dados["endereco"]
     cidade = dados["cidade"]
