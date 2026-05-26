@@ -1,6 +1,12 @@
 from flask import request, jsonify
 from routes import ofic_bp
-from controllers import oficina_dados
+from controllers import (
+    oficina_dados,
+    oficinas_lista,
+    oficinas_remover,
+    oficinas_atualizar,
+    oficinas_buscar
+)
 
 @ofic_bp.route("/nova-oficina", methods=["POST"])
 def nova_oficina():
