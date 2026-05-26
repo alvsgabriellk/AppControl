@@ -10,4 +10,10 @@ from .veiculo_service import (
 from .auth.login_service import login_ok
 from .veiculo_service import veiculo_ok
 from .oficina_service import oficina_ok
-from .manutencao_service import manutencao_ok
+from .manutencao_service import (
+    manutencao_ok,
+    manutencoes_lista_ok,
+    manutencoes_remover_ok,
+    manutencoes_buscar_ok,
+    manutencoes_atualizar_ok
+)
