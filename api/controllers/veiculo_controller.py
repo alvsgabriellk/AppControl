@@ -25,4 +25,7 @@ def veiculos_remover(dados):
     id = dados["id"]
 
     return veiculos_remover_ok(id)
+
+def veiculos_atualizar(dados):
+    return veiculos_atualizar_ok(dados)
     
