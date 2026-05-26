@@ -9,7 +9,13 @@ from .veiculo_service import (
 )
 from .auth.login_service import login_ok
 from .veiculo_service import veiculo_ok
-from .oficina_service import oficina_ok
+from .oficina_service import (
+    oficina_ok,
+    oficinas_buscar_ok,
+    oficinas_lista_ok,
+    oficinas_atualizar_ok,
+    oficinas_remover_ok
+)
 from .manutencao_service import (
     manutencao_ok,
     manutencoes_lista_ok,
