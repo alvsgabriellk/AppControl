@@ -1,4 +1,10 @@
-from services import manutencao_ok
+from services import (
+    manutencao_ok,
+    manutencoes_lista_ok,
+    manutencoes_remover_ok,
+    manutencoes_atualizar_ok,
+    manutencoes_buscar_ok
+)
 
 def manutencao_dados(dados):
 
