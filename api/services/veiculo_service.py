@@ -83,3 +83,43 @@ def veiculos_atualizar_ok(dados):
     db.session.commit()
 
     return {"msg": "Veiculo atualizado!"}, 200
+
+def veiculos_buscar_ok(dados):
+
+    if "id" in dados:
+        veiculo = db.session.get(Veiculo, dados["id"])
+    
+    elif "placa" in dados:
+        veiculo = db.session.execute(
+            select(Veiculo).where(
+                Veiculo.placa == dados["placa"]
+            )
+        ).scalar_one_or_none()
+        
+    elif "renavan" in dados:
+        veiculo = db.session.execute(
+            select(Veiculo).where(
+                Veiculo.renavan == dados["renavan"]
+            )
+        ).scalar_one_or_none()
+    
+    else:
+        return {"error": "Informe id, placa ou renavan"}, 400
+    
+    if not veiculo:
+        return {"error": "Veiculo não encontrado"}, 404
+
+        
+    return {
+        "veiculo": {
+            "veiculo_id": veiculo.id,
+            "usuario_id": veiculo.usuario_id,
+            "placa": veiculo.placa,
+            "renavan": veiculo.renavan,
+            "marca": veiculo.marca,
+            "modelo": veiculo.modelo,
+            "km_compra": veiculo.km_compra,
+            "km_atual": veiculo.km_atual,
+            "data_cadastrado": veiculo.data_cadastro
+        }
+    }, 200
