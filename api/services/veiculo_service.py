@@ -64,3 +64,21 @@ def veiculos_remover_ok(id):
     db.session.commit()
 
     return {"msg": "Veiculo deletado!"}, 200
+
+def veiculos_atualizar_ok(id, dados):
+    veiculo = db.session.get(Veiculo, id)
+
+    if not veiculo:
+        return {"error": "Veiculo não encontrado"}, 404
+    
+    if "placa" in dados:
+        veiculo.placa == dados["placa"]
+    
+    if "km_atual" in dados:
+        if veiculo.km_atual > dados["km_atual"]:
+            return {"error": "Digite o km atual válido!"}, 400
+        veiculo.km_atual == dados["km_atual"]
+    
+    db.session.commit()
+
+    return {"msg": "Veiculo atualizado!"}, 200
