@@ -25,3 +25,11 @@ def remover_veiculo():
     resposta, status = veiculos_remover(dados)
 
     return jsonify(resposta), status
+
+@veic_bp.route("/atualizar", methods=["POST"])
+def atualizar_veiculo():
+    dados = request.get_json()
+
+    resposta, status = veiculos_atualizar(dados)
+
+    return jsonify(resposta), status
