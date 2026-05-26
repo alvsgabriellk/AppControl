@@ -28,4 +28,7 @@ def veiculos_remover(dados):
 
 def veiculos_atualizar(dados):
     return veiculos_atualizar_ok(dados)
+
+def veiculos_buscar(dados):
+    return veiculos_buscar_ok(dados)
     
