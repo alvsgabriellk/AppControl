@@ -21,4 +21,8 @@ def veiculos_lista():
     return veiculos_lista_ok()
 
 
+def veiculos_remover(dados):
+    id = dados["id"]
+
+    return veiculos_remover_ok(id)
     
