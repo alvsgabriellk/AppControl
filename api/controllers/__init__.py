@@ -1,5 +1,11 @@
 from .auth.register_controller import register_dados
-from .veiculo_controller import veiculos_dados, veiculos_lista
+from .veiculo_controller import (
+    veiculos_dados, 
+    veiculos_lista, 
+    veiculos_remover, 
+    veiculos_atualizar,
+    veiculos_buscar
+)
 from .auth.login_controller import login_dados
 from .veiculo_controller import veiculos_dados
 from .oficina_controller import oficina_dados
