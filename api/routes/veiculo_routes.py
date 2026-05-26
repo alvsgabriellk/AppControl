@@ -16,3 +16,12 @@ def listar_veiculos():
     resposta, status = veiculos_lista()
 
     return jsonify(resposta), status
+
+
+@veic_bp.route("/remover", methods=["POST"])
+def remover_veiculo():
+    dados = request.get_json()
+
+    resposta, status = veiculos_remover(dados)
+
+    return jsonify(resposta), status
