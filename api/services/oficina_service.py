@@ -1,6 +1,7 @@
 
 from database import db, Oficina
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import select
 
 def oficina_ok(nome, telefone, responsavel, endereco, cidade, estado):
     oficina = Oficina(
