@@ -38,3 +38,81 @@ def manutencao_ok(veiculo_id, oficina_id, tipo_manutencao, valor, km_manutencao,
     db.session.commit()
 
     return {"msg": "Manutenção realizada!"}, 201
+
+def manutencoes_lista_ok():
+    manutencoes = db.session.execute(
+        select(Manutencao)
+    ).scalars().all()
+
+    if not manutencoes:
+        return {"error": "Não existe nenhuma manutenção cadastrada!"}, 404
+
+    manutencoes_json = []
+
+    for manutencao in manutencoes:
+        manutencoes_json.append({
+            "manutencao_id": manutencao.id,
+            "veiculo_id": manutencao.veiculo_id,
+            "oficina_id": manutencao.oficina_id,
+            "tipo_manutencao": manutencao.tipo_manutencao,
+            "valor": float(manutencao.valor),
+            "km_manutencao": manutencao.km_manutencao,
+            "data_manutencao": manutencao.data_manutencao,
+            "garantia_dias": manutencao.garantia_dias
+        })
+
+    return {"manutencoes": manutencoes_json}, 200
+
+
+def manutencoes_remover_ok(id):
+    manutencao = db.session.get(Manutencao, id)
+
+    if not manutencao:
+        return {"error": "Manutenção não encontrada"}, 404
+
+    db.session.delete(manutencao)
+    db.session.commit()
+
+    return {"msg": "Manutenção removida!"}, 200
+
+
+def manutencoes_atualizar_ok(dados):
+    id = dados["id"]
+
+    manutencao = db.session.get(Manutencao, id)
+
+    if not manutencao:
+        return {"error": "Manutenção não encontrada"}, 404
+
+    if "tipo_manutencao" in dados:
+        manutencao.tipo_manutencao = dados["tipo_manutencao"]
+
+    if "valor" in dados:
+        manutencao.valor = float(dados["valor"])
+
+    if "garantia_dias" in dados:
+        manutencao.garantia_dias = int(dados["garantia_dias"])
+
+    db.session.commit()
+
+    return {"msg": "Manutenção atualizada!"}, 200
+
+
+def manutencoes_buscar_ok(id):
+    manutencao = db.session.get(Manutencao, id)
+
+    if not manutencao:
+        return {"error": "Manutenção não encontrada"}, 404
+
+    return {
+        "manutencao": {
+            "manutencao_id": manutencao.id,
+            "veiculo_id": manutencao.veiculo_id,
+            "oficina_id": manutencao.oficina_id,
+            "tipo_manutencao": manutencao.tipo_manutencao,
+            "valor": float(manutencao.valor),
+            "km_manutencao": manutencao.km_manutencao,
+            "data_manutencao": manutencao.data_manutencao,
+            "garantia_dias": manutencao.garantia_dias
+        }
+    }, 200
