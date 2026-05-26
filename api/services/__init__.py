@@ -4,7 +4,8 @@ from .veiculo_service import (
     veiculo_ok, 
     veiculos_lista_ok, 
     veiculos_remover_ok, 
-    veiculos_atualizar_ok
+    veiculos_atualizar_ok,
+    veiculos_buscar_ok
 )
 from .auth.login_service import login_ok
 from .veiculo_service import veiculo_ok
