@@ -9,3 +9,10 @@ def novo_veiculo():
     resposta, status = veiculos_dados(dados)
 
     return jsonify(resposta), status
+
+@veic_bp.route("/veiculos", methods=["GET"])
+def listar_veiculos():
+
+    resposta, status = veiculos_lista()
+
+    return jsonify(resposta), status
