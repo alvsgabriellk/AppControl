@@ -28,3 +28,28 @@ def veiculo_ok(usuario_id, placa, renavan, marca, modelo, km_compra, km_atual):
         return {"error": "Veiculo já foi cadastrado"}, 409
     
     return {"msg": "Veiculo cadastrado!"}, 201
+
+def veiculos_lista_ok():
+    veiculos = db.session.execute(
+        select(Veiculo)
+    ).scalars().all()
+
+    if not veiculos:
+        return {"error": "Não existe nenhum veiculo cadastrado!"}, 404
+    
+    veiculos_json = []
+
+    for veiculo in veiculos:
+        veiculos_json.append({
+            "veiculo_id" : veiculo.id,
+            "usuario_id": veiculo.usuario_id,
+            "placa": veiculo.placa,
+            "renavan": veiculo.renavan,
+            "marca": veiculo.marca,
+            "modelo": veiculo.modelo,
+            "km_compra": veiculo.km_compra,
+            "km_atual": veiculo.km_atual,
+            "data_cadastrado": veiculo.data_cadastro
+        })
+    
+    return {"veiculos": veiculos_json}, 200
