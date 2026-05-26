@@ -1,4 +1,10 @@
-from services import oficina_ok
+from services import (
+    oficina_ok,
+    oficinas_lista_ok,
+    oficinas_remover_ok,
+    oficinas_atualizar_ok,
+    oficinas_buscar_ok
+)
 
 def oficina_dados(dados):
     nome = dados["nome"]
