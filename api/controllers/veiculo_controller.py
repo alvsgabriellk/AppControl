@@ -16,4 +16,9 @@ def veiculos_dados(dados):
         modelo, km_compra,
         km_atual
     )
+
+def veiculos_lista():
+    return veiculos_lista_ok()
+
+
     
