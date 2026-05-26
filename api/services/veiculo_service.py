@@ -55,16 +55,12 @@ def veiculos_lista_ok():
     return {"veiculos": veiculos_json}, 200
 
 def veiculos_remover_ok(id):
-    veiculo = db.session.execute(
-        select(Veiculo).where(
-            Veiculo.id == id
-        )
-    ).scalar_one_or_none()
+    veiculo = db.session.get(Veiculo, id)
 
     if not veiculo:
         return {"error": "Veiculo não encontrado"}, 404
     
-    db.session.remove(veiculo)
+    db.session.delete(veiculo)
     db.session.commit()
 
     return {"msg": "Veiculo deletado!"}, 200
