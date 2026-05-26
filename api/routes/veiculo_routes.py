@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from routes import veic_bp
-from controllers import veiculos_dados 
+from controllers import veiculos_dados, veiculos_lista
 
 @veic_bp.route("/novo-veiculo", methods=["POST"])
 def novo_veiculo():
