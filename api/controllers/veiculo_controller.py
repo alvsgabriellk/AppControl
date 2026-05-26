@@ -1,4 +1,4 @@
-from services import veiculo_ok, veiculos_lista_ok, veiculos_remover_ok
+from services import veiculo_ok, veiculos_lista_ok, veiculos_remover_ok, veiculos_atualizar_ok
 
 def veiculos_dados(dados):
 
