@@ -33,3 +33,11 @@ def atualizar_veiculo():
     resposta, status = veiculos_atualizar(dados)
 
     return jsonify(resposta), status
+
+@veic_bp.route("/buscar", methods=["GET"])
+def buscar_veiculo():
+    dados = request.get_json()
+
+    resposta, status = veiculos_buscar(dados)
+
+    return jsonify(resposta), status
