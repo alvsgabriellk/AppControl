@@ -3,7 +3,8 @@ from .veiculo_controller import (
     veiculos_dados, 
     veiculos_lista, 
     veiculos_remover, 
-    veiculos_atualizar
+    veiculos_atualizar,
+    veiculos_buscar
 )
 from .auth.login_controller import login_dados
 from .veiculo_controller import veiculos_dados
