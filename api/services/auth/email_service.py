@@ -16,9 +16,9 @@ def enviar_confirmacao(usuario):
 
     msg.body = f"""
     Olá, {usuario.nome}!
-    Clique no link abaixo para confirmar seu email:
+    Clique no link abaixo para confirmar seu email
     {link}
-    Se você não criou uma conta, ignore o este email;
+    Caso você não tenha criado uma conta, ignore este email.
     """
 
     mail.send(msg)
