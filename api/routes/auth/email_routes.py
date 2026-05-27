@@ -24,3 +24,20 @@ def confirmar_email(token):
     db.session.commit()
 
     return {"msg": "Email confirmado"}
+
+@auth_bp.route("/esqueci-senha", methods=["POST"])
+def esqueci_senha():
+
+    dados = request.get_json()
+
+    email = dados["email"]
+
+    usuario = db.session.execute(
+        select(Usuario).where(
+            Usuario.email == email
+        )
+    ).scalar_one_or_none()
+
+    enviar_recuperacao(usuario)
+
+    return {"msg": "Email enviado"}
