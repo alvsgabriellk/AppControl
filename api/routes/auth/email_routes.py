@@ -23,4 +23,4 @@ def confirmar_email(token):
 
     db.session.commit()
 
-    return {"message": "Email confirmado"}
+    return {"msg": "Email confirmado"}
