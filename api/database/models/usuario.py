@@ -11,6 +11,7 @@ class Usuario(db.Model):
     data_criado = db.Column(db.DateTime, default=datetime.utcnow)
     data_ultima_atualizacao = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     ativo = db.Column(db.Boolean, default=True)
+    verificado = db.Column(db.Boolean, default=False)
 
     veiculos = db.relationship(
         "Veiculo",

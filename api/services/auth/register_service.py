@@ -1,5 +1,6 @@
 from database import db, Usuario
 from utils import gerar_senha_hash
+from services.auth.email_service import enviar_confirmacao
 from sqlalchemy.exc import IntegrityError
 
 def register_ok(nome, email, senha):
@@ -19,4 +20,5 @@ def register_ok(nome, email, senha):
 
         return {"error": "Esse email já está sendo usado!"}, 409
     
+    enviar_confirmacao(usuario)
     return {"msg": "Usuário cadastrado!"}, 201
