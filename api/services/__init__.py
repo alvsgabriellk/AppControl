@@ -1,5 +1,5 @@
 from .auth.register_service import register_ok
-from .auth.email_service import enviar_confirmacao
+from .auth.email_service import enviar_confirmacao, enviar_recuperacao
 
 from .veiculo_service import (
     veiculo_ok, 
