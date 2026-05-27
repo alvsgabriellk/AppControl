@@ -41,3 +41,27 @@ def esqueci_senha():
     enviar_recuperacao(usuario)
 
     return {"msg": "Email enviado"}
+
+@auth_bp.route("/resetar-senha/<token>", methods=["POST"])
+def resetar_senha(token):
+
+    email = validar_token(token) 
+
+    if not email:
+        return {"error": "Token inválido"}
+
+    dados = request.get_json()
+
+    nova_senha = dados["nova_senha"]
+
+    usuario = db.session.execute(
+        select(Usuario).where(
+            Usuario.email == email
+        )
+    ).scalar_one_or_none()
+
+    usuario.senha = gerar_senha_hash(nova_senha)
+
+    db.session.commit()
+
+    return {"msg": "Senha alterada"}
