@@ -4,6 +4,7 @@ from database import db
 import os
 from routes import auth_bp, veic_bp, ofic_bp, mant_bp
 from config import DesenvolvimentoConfig, ProducaoConfig
+from utils import mail
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ else:
 CORS(app, origins=app.config["CORS_ORIGINS"])
 
 db.init_app(app)
+mail.init_app(app)
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(veic_bp)
