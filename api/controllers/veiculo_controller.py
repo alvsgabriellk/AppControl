@@ -13,14 +13,18 @@ def veiculos_dados(dados):
     renavan = dados["renavan"]
     marca = dados["marca"]
     modelo = dados["modelo"]
+    marca_modelo = dados["marca_modelo"]
+    ano_modelo = dados["ano_modelo"]
+    cor = dados["cor"]
     km_compra = float(dados["km_compra"])
     km_atual = float(dados["km_atual"])
 
     return veiculo_ok(
         usuario_id, placa, 
         renavan, marca, 
-        modelo, km_compra,
-        km_atual
+        modelo, marca_modelo,
+        ano_modelo, cor,
+        km_compra, km_atual
     )
 
 def veiculos_lista():
