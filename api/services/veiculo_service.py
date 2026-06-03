@@ -2,7 +2,7 @@ from database import db, Veiculo, Usuario
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 
-def veiculo_ok(usuario_id, placa, renavan, marca, modelo, km_compra, km_atual):
+def veiculo_ok(usuario_id, placa, renavan, marca, modelo, marca_modelo, ano_modelo, cor, km_compra, km_atual):
     usuario = db.session.execute(
         select(Usuario).where(
             Usuario.id == usuario_id
@@ -15,8 +15,9 @@ def veiculo_ok(usuario_id, placa, renavan, marca, modelo, km_compra, km_atual):
     veiculo = Veiculo(
         usuario_id=usuario.id, placa=placa,
         renavan=renavan, marca=marca, 
-        modelo=modelo, km_compra=km_compra,
-        km_atual=km_atual
+        modelo=modelo, marca_modelo=marca_modelo,
+        ano_modelo=ano_modelo, cor=cor,
+        km_compra=km_compra, km_atual=km_atual
     )
 
     try:
@@ -47,6 +48,9 @@ def veiculos_lista_ok():
             "renavan": veiculo.renavan,
             "marca": veiculo.marca,
             "modelo": veiculo.modelo,
+            "marca_modelo": veiculo.marca_modelo,
+            "ano_modelo": veiculo.ano_modelo,
+            "cor": veiculo.cor,
             "km_compra": veiculo.km_compra,
             "km_atual": veiculo.km_atual,
             "data_cadastrado": veiculo.data_cadastro
@@ -118,6 +122,9 @@ def veiculos_buscar_ok(dados):
             "renavan": veiculo.renavan,
             "marca": veiculo.marca,
             "modelo": veiculo.modelo,
+            "marca_modelo": veiculo.marca_modelo,
+            "ano_modelo": veiculo.ano_modelo,
+            "cor": veiculo.cor,
             "km_compra": veiculo.km_compra,
             "km_atual": veiculo.km_atual,
             "data_cadastrado": veiculo.data_cadastro
