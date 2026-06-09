@@ -11,4 +11,5 @@ class Manutencao(db.Model):
     valor = db.Column(db.Numeric)
     km_manutencao = db.Column(db.Integer)
     data_manutencao = db.Column(db.DateTime, default=datetime.utcnow)
+    data_ultima_atualizacao = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     garantia_dias = db.Column(db.Integer)

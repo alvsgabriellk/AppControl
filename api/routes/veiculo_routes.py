@@ -7,8 +7,10 @@ from controllers import (
     veiculos_atualizar, 
     veiculos_buscar
 )
+from flask_jwt_extended import jwt_required
 
 @veic_bp.route("/novo-veiculo", methods=["POST"])
+@jwt_required()
 def novo_veiculo():
     dados = request.get_json()
 
@@ -17,6 +19,7 @@ def novo_veiculo():
     return jsonify(resposta), status
 
 @veic_bp.route("/veiculos", methods=["GET"])
+@jwt_required()
 def listar_veiculos():
 
     resposta, status = veiculos_lista()
@@ -25,6 +28,7 @@ def listar_veiculos():
 
 
 @veic_bp.route("/remover", methods=["DELETE"])
+@jwt_required()
 def remover_veiculo():
     dados = request.get_json()
 
@@ -33,6 +37,7 @@ def remover_veiculo():
     return jsonify(resposta), status
 
 @veic_bp.route("/atualizar", methods=["PUT"])
+@jwt_required()
 def atualizar_veiculo():
     dados = request.get_json()
 
@@ -41,6 +46,7 @@ def atualizar_veiculo():
     return jsonify(resposta), status
 
 @veic_bp.route("/buscar", methods=["GET"])
+@jwt_required()
 def buscar_veiculo():
     dados = request.get_json()
 

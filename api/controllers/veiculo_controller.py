@@ -8,7 +8,6 @@ from services import (
 
 def veiculos_dados(dados):
 
-    usuario_id = dados["usuario_id"]
     placa = dados["placa"]
     renavan = dados["renavan"]
     marca = dados["marca"]
@@ -20,7 +19,7 @@ def veiculos_dados(dados):
     km_atual = float(dados["km_atual"])
 
     return veiculo_ok(
-        usuario_id, placa, 
+        placa, 
         renavan, marca, 
         modelo, marca_modelo,
         ano_modelo, cor,

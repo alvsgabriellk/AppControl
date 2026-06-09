@@ -1,10 +1,13 @@
 from database import db, Manutencao, Veiculo, Oficina
 from sqlalchemy import select
+from flask_jwt_extended import get_jwt_identity
 
 def manutencao_ok(veiculo_id, oficina_id, tipo_manutencao, valor, km_manutencao, garantia_dias):
+    usuario_id = int(get_jwt_identity())
     veiculo = db.session.execute(
         select(Veiculo).where(
-            Veiculo.id == veiculo_id
+            Veiculo.id == veiculo_id,
+            Veiculo.usuario_id == usuario_id
         )
     ).scalar_one_or_none()
 
@@ -13,7 +16,8 @@ def manutencao_ok(veiculo_id, oficina_id, tipo_manutencao, valor, km_manutencao,
     
     oficina = db.session.execute(
         select(Oficina).where(
-            Oficina.id == oficina_id
+            Oficina.id == oficina_id,
+            Oficina.usuario_id == usuario_id
         )
     ).scalar_one_or_none()
 
@@ -40,8 +44,14 @@ def manutencao_ok(veiculo_id, oficina_id, tipo_manutencao, valor, km_manutencao,
     return {"msg": "Manutenção realizada!"}, 201
 
 def manutencoes_lista_ok():
+
+    usuario_id = int(get_jwt_identity())
     manutencoes = db.session.execute(
         select(Manutencao)
+        .join(Veiculo)
+        .where(
+            Veiculo.usuario_id == usuario_id
+        )
     ).scalars().all()
 
     if not manutencoes:
@@ -65,7 +75,15 @@ def manutencoes_lista_ok():
 
 
 def manutencoes_remover_ok(id):
-    manutencao = db.session.get(Manutencao, id)
+    usuario_id = int(get_jwt_identity())
+    manutencao = db.session.execute(
+        select(Manutencao)
+        .join(Veiculo)
+        .where(
+            Manutencao.id == id,
+            Veiculo.usuario_id == usuario_id
+        )
+    ).scalar_one_or_none()
 
     if not manutencao:
         return {"error": "Manutenção não encontrada"}, 404
@@ -77,9 +95,18 @@ def manutencoes_remover_ok(id):
 
 
 def manutencoes_atualizar_ok(dados):
+
+    usuario_id = int(get_jwt_identity())
     id = dados["id"]
 
-    manutencao = db.session.get(Manutencao, id)
+    manutencao = db.session.execute(
+        select(Manutencao)
+        .join(Veiculo)
+        .where(
+            Veiculo.usuario_id == usuario_id,
+            Manutencao.id == id
+        )
+    ).scalar_one_or_none()
 
     if not manutencao:
         return {"error": "Manutenção não encontrada"}, 404
@@ -99,7 +126,15 @@ def manutencoes_atualizar_ok(dados):
 
 
 def manutencoes_buscar_ok(id):
-    manutencao = db.session.get(Manutencao, id)
+    usuario_id = int(get_jwt_identity())
+    manutencao = db.session.execute(
+        select(Manutencao)
+        .join(Veiculo)
+        .where(
+            Veiculo.usuario_id == usuario_id,
+            Manutencao.id == id
+        )
+    ).scalar_one_or_none()
 
     if not manutencao:
         return {"error": "Manutenção não encontrada"}, 404

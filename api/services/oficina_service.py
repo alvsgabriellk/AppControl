@@ -2,9 +2,13 @@
 from database import db, Oficina
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
+from flask_jwt_extended import get_jwt_identity
 
 def oficina_ok(nome, telefone, responsavel, endereco, cidade, estado):
+    usuario_id = int(get_jwt_identity())
+    
     oficina = Oficina(
+        usuario_id=usuario_id,
         nome=nome,
         telefone=telefone,
         responsavel=responsavel,
@@ -25,8 +29,12 @@ def oficina_ok(nome, telefone, responsavel, endereco, cidade, estado):
     return {"msg": "Oficina cadastrada!"}, 201
 
 def oficinas_lista_ok():
+    usuario_id = int(get_jwt_identity())
+
     oficinas = db.session.execute(
-        select(Oficina)
+        select(Oficina).where(
+            Oficina.usuario_id == usuario_id
+        )
     ).scalars().all()
 
     if not oficinas:
@@ -50,7 +58,14 @@ def oficinas_lista_ok():
 
 
 def oficinas_remover_ok(id):
-    oficina = db.session.get(Oficina, id)
+    usuario_id = int(get_jwt_identity())
+
+    oficina = db.session.execute(
+        select(Oficina).where(
+            Oficina.id == id,
+            Oficina.usuario_id == usuario_id
+        )
+    ).scalar_one_or_none()
 
     if not oficina:
         return {"error": "Oficina não encontrada"}, 404
@@ -63,8 +78,14 @@ def oficinas_remover_ok(id):
 
 def oficinas_atualizar_ok(dados):
     id = dados["id"]
+    usuario_id = int(get_jwt_identity())
 
-    oficina = db.session.get(Oficina, id)
+    oficina = db.session.execute(
+        select(Oficina).where(
+            Oficina.id == id,
+            Oficina.usuario_id == usuario_id
+        )
+    ).scalar_one_or_none()
 
     if not oficina:
         return {"error": "Oficina não encontrada"}, 404
@@ -79,34 +100,36 @@ def oficinas_atualizar_ok(dados):
         oficina.responsavel = dados["responsavel"]
 
     if "estado" in dados:
-        if "cidade" not in dados:
-            return {
-                "error": "Ao atualizar o estado, envie a cidade também!"
-            }, 400
-
         oficina.estado = dados["estado"]
+    
+    if "cidade" in dados:
         oficina.cidade = dados["cidade"]
 
-    try:
-        db.session.commit()
+    if "endereco" in dados:
+        oficina.estado = dados["endereco"]
 
-    except IntegrityError:
-        db.session.rollback()
-
-        return {"error": "Já existe uma oficina com esse nome"}, 409
+    db.session.commit()
 
     return {"msg": "Oficina atualizada!"}, 200
 
 
 def oficinas_buscar_ok(dados):
+    
+    usuario_id = int(get_jwt_identity())
 
     if "id" in dados:
-        oficina = db.session.get(Oficina, dados["id"])
+        oficina = db.session.execute(
+            select(Oficina).where(
+                Oficina.id == dados["id"],
+                Oficina.usuario_id == usuario_id
+            )
+        ).scalar_one_or_none()
 
     elif "nome" in dados:
         oficina = db.session.execute(
             select(Oficina).where(
-                Oficina.nome == dados["nome"]
+                Oficina.nome == dados["nome"],
+                Oficina.usuario_id == usuario_id
             )
         ).scalar_one_or_none()
 

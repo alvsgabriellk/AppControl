@@ -5,6 +5,7 @@ import os
 from routes import auth_bp, veic_bp, ofic_bp, mant_bp
 from config import DesenvolvimentoConfig, ProducaoConfig
 from utils import mail
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 
@@ -13,6 +14,8 @@ if ENV == "production":
     app.config.from_object(ProducaoConfig)
 else:
     app.config.from_object(DesenvolvimentoConfig)
+
+jwt = JWTManager(app)
 
 CORS(app, origins=app.config["CORS_ORIGINS"])
 

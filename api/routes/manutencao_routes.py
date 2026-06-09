@@ -7,8 +7,10 @@ from controllers import (
     manutencoes_buscar
 )
 from routes import mant_bp
+from flask_jwt_extended import jwt_required
 
 @mant_bp.route("/nova-manutencao", methods=["POST"])
+@jwt_required()
 def nova_manutencao():
     dados = request.get_json()
 
@@ -17,6 +19,7 @@ def nova_manutencao():
     return jsonify(resposta), status
 
 @mant_bp.route("/manutencoes", methods=["GET"])
+@jwt_required()
 def listar_manutencoes():
 
     resposta, status = manutencoes_lista()
@@ -25,6 +28,7 @@ def listar_manutencoes():
 
 
 @mant_bp.route("/remover", methods=["DELETE"])
+@jwt_required()
 def remover_manutencao():
     dados = request.get_json()
 
@@ -34,6 +38,7 @@ def remover_manutencao():
 
 
 @mant_bp.route("/atualizar", methods=["PUT"])
+@jwt_required()
 def atualizar_manutencao():
     dados = request.get_json()
 
@@ -43,6 +48,7 @@ def atualizar_manutencao():
 
 
 @mant_bp.route("/buscar", methods=["GET"])
+@jwt_required()
 def buscar_manutencao():
     dados = request.get_json()
 

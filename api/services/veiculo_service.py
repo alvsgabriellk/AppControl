@@ -1,19 +1,14 @@
 from database import db, Veiculo, Usuario
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
+from flask_jwt_extended import get_jwt_identity
 
-def veiculo_ok(usuario_id, placa, renavan, marca, modelo, marca_modelo, ano_modelo, cor, km_compra, km_atual):
-    usuario = db.session.execute(
-        select(Usuario).where(
-            Usuario.id == usuario_id
-        )
-    ).scalar_one_or_none()
+def veiculo_ok(placa, renavan, marca, modelo, marca_modelo, ano_modelo, cor, km_compra, km_atual):
 
-    if not usuario:
-        return {"error": "Usuário não encontrado"}, 404
+    usuario_id = int(get_jwt_identity())
     
     veiculo = Veiculo(
-        usuario_id=usuario.id, placa=placa,
+        usuario_id=usuario_id, placa=placa,
         renavan=renavan, marca=marca, 
         modelo=modelo, marca_modelo=marca_modelo,
         ano_modelo=ano_modelo, cor=cor,
@@ -31,8 +26,12 @@ def veiculo_ok(usuario_id, placa, renavan, marca, modelo, marca_modelo, ano_mode
     return {"msg": "Veiculo cadastrado!"}, 201
 
 def veiculos_lista_ok():
+
+    usuario_id = int(get_jwt_identity())
     veiculos = db.session.execute(
-        select(Veiculo)
+        select(Veiculo).where(
+            Veiculo.usuario_id == usuario_id
+        )
     ).scalars().all()
 
     if not veiculos:
@@ -59,7 +58,13 @@ def veiculos_lista_ok():
     return {"veiculos": veiculos_json}, 200
 
 def veiculos_remover_ok(id):
-    veiculo = db.session.get(Veiculo, id)
+    usuario_id = int(get_jwt_identity())
+    veiculo = db.session.execute(
+        select(Veiculo).where(
+            Veiculo.id == id,
+            Veiculo.usuario_id == usuario_id
+        )
+    ).scalar_one_or_none()
 
     if not veiculo:
         return {"error": "Veiculo não encontrado"}, 404
@@ -70,8 +75,15 @@ def veiculos_remover_ok(id):
     return {"msg": "Veiculo deletado!"}, 200
 
 def veiculos_atualizar_ok(dados):
+
+    usuario_id = int(get_jwt_identity())
     id = dados["id"]
-    veiculo = db.session.get(Veiculo, id)
+    veiculo = db.session.execute(
+        select(Veiculo).wher(
+            Veiculo.id == id,
+            Veiculo.usuario_id == usuario_id
+        )
+    ).scalar_one_or_none()
 
     if not veiculo:
         return {"error": "Veiculo não encontrado"}, 404
@@ -90,20 +102,29 @@ def veiculos_atualizar_ok(dados):
 
 def veiculos_buscar_ok(dados):
 
+    usuario_id = int(get_jwt_identity())
+
     if "id" in dados:
-        veiculo = db.session.get(Veiculo, dados["id"])
+        veiculo = db.session.execute(
+            select(Veiculo).where(
+                Veiculo.id == dados["id"],
+                Veiculo.usuario_id == usuario_id
+            )
+        ).scalar_one_or_none()
     
     elif "placa" in dados:
         veiculo = db.session.execute(
             select(Veiculo).where(
-                Veiculo.placa == dados["placa"]
+                Veiculo.placa == dados["placa"],
+                Veiculo.usuario_id == usuario_id
             )
         ).scalar_one_or_none()
         
     elif "renavan" in dados:
         veiculo = db.session.execute(
             select(Veiculo).where(
-                Veiculo.renavan == dados["renavan"]
+                Veiculo.renavan == dados["renavan"],
+                Veiculo.usuario_id == usuario_id
             )
         ).scalar_one_or_none()
     

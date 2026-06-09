@@ -28,8 +28,6 @@ def enviar_recuperacao(usuario):
 
     token = gerar_token(usuario.email)
 
-    link = f"http://localhost:5000/auth/resetar-senha/{token}"
-
     msg = Message(
         subject="Recuperar senha",
         sender=current_app.config["MAIL_USERNAME"],
@@ -38,8 +36,8 @@ def enviar_recuperacao(usuario):
 
     msg.body = f"""
     Olá, {usuario.nome}!
-    Clique no link abaixo para resetar sua senha
-    {link}
+    Copie o token abaixo e em seguida volte para a página e cole o token para resetar sua senha
+    {token}
     Caso você não tenha solicitado o envio de recuperação de senha, então desconsidere este email.
     """
 

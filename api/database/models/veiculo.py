@@ -9,12 +9,13 @@ class Veiculo(db.Model):
     renavan = db.Column(db.String(20),unique=True,nullable=False)
     marca = db.Column(db.String(50),nullable=False)
     modelo = db.Column(db.String(50),nullable=False)
-    marca_modelo = db.Column(db.String(30), nullable=False)
+    marca_modelo = db.Column(db.String(50), nullable=False)
     ano_modelo = db.Column(db.Integer, nullable=False)
     cor = db.Column(db.String(30), nullable=False)
     km_compra = db.Column(db.Float)
     km_atual = db.Column(db.Float)
     data_cadastro = db.Column(db.DateTime,default=datetime.utcnow)
+    data_ultima_atualizacao = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # RELACIONAMENTO
     manutencoes = db.relationship(

@@ -7,8 +7,10 @@ from controllers import (
     oficinas_atualizar,
     oficinas_buscar
 )
+from flask_jwt_extended import jwt_required
 
 @ofic_bp.route("/nova-oficina", methods=["POST"])
+@jwt_required()
 def nova_oficina():
     dados = request.get_json()
 
@@ -17,6 +19,7 @@ def nova_oficina():
     return jsonify(resposta), status
 
 @ofic_bp.route("/oficinas", methods=["GET"])
+@jwt_required()
 def listar_oficinas():
 
     resposta, status = oficinas_lista()
@@ -25,6 +28,7 @@ def listar_oficinas():
 
 
 @ofic_bp.route("/remover", methods=["DELETE"])
+@jwt_required()
 def remover_oficina():
     dados = request.get_json()
 
@@ -34,6 +38,7 @@ def remover_oficina():
 
 
 @ofic_bp.route("/atualizar", methods=["PUT"])
+@jwt_required()
 def atualizar_oficina():
     dados = request.get_json()
 
@@ -43,6 +48,7 @@ def atualizar_oficina():
 
 
 @ofic_bp.route("/buscar", methods=["GET"])
+@jwt_required()
 def buscar_oficina():
     dados = request.get_json()
 
