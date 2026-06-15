@@ -19,7 +19,7 @@ class Config:
 
 class DesenvolvimentoConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI  = "mysql+pymysql://root:Gb2410!@localhost:3307/manutencoes"
+    SQLALCHEMY_DATABASE_URI  = "mysql+pymysql://root:senhaaqui!@localhost:portaaqui/manutencoes"
     JWT_SECRET_KEY = "wnfun3ufn3n83nv8n3vn4jvn"
     '''SQLALCHEMY_DATABASE_URI  = "sqlite:///banco.db"'''
     CORS_ORIGINS = [""]
